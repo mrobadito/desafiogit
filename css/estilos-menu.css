@@ -1,0 +1,8 @@
+.navbar a {
+	text-decoration: none;
+	font-size: 1em;
+	font-family: Helvetica, sans-serif;
+	color:white;
+	background: #333;
+	padding: 15px 25px;  
+}
