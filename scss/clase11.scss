@@ -1,0 +1,160 @@
+/*importar hojas de estilo fuera del archivo, SIEMPRE TIENEN QUE IR ARRIBA DE TODO EL DOC */
+
+@import "scss/nav";
+
+/* ---- DECLARANDO VARIABLES , siempre van arriba ---- */
+/* Las variables sirven para almacenar informacion */
+
+$color-principal: black;
+$color-secundario: lightgreen; 
+$color-complementario: lightblue; 
+
+$font-title: bold 4em "open sans", sans-serif,;
+
+
+body {background: white; color:orange;}
+
+h1 {font: $font-title; color:$color-complementario;}
+
+
+
+/* ---- METODOLOGIA BEM - empieza por el bloque que contiene, nunca se utilizan id sino que se usan clases(.) ---- */
+
+.quienes {background:beige;}
+.quienes__integrantes {margin:1em 0; font-size: 1.3em; color:$color-principal; text-align: right;}
+
+
+
+/* ---- PROPIEDAD DE SAS PARA HEREDAR CUALIDADES @EXTEND QUE NO EXISTE EN CSS ---- */
+
+.quienes__integrantes--destacado {@extend .quienes__integrantes; color: $color-complementario;	border: solid 2px white; padding: 1em;}
+
+
+
+/* ----  OPERADORES ---- */
+
+$ancho:600px;
+
+.quienes__box1{
+	width: $ancho*2;
+	background:$color-principal; 
+	color:$color-complementario;
+	padding:1em;
+
+}
+
+.quienes__box2{
+	width: $ancho/2;
+	background:$color-principal; 
+	color:$color-complementario;
+	padding:1em;
+
+}
+
+.quienes__box3{
+	width: $ancho+100;
+	background:$color-principal; 
+	color:$color-complementario;
+	padding:1em;
+
+}
+
+/* ----  CONDICIONALES ---- */
+/* ----  OPERADORES RELACIONALES ---- */
+
+
+$layout:layout2;
+
+.header__title{
+	@if 1+4!=6 {border-bottom:solid 1px black;}
+
+	@if $layout == layout1 {
+	color:green;
+	}
+
+	@else if $layout == layout2 {
+	color:purple;
+	}	
+
+	@else if $layout == layout3 {
+	color:navy;
+	}	
+
+	@else {
+	color:pink;
+	}	
+}
+
+
+/* ----  BUCLES ---- */
+/* ----  @for ---- */
+
+
+@for $i from 1 through 4 {
+
+	.todos#{$i} {width:300px *$i; padding: 1em; background: pink;}
+}
+
+
+@for $i from 1 to 4 {
+
+	.todos#{$i} {width:200px * $i; padding: 1em; background: blue;}
+
+}
+
+
+/* ----  @each ---- */
+
+$lista: beto pocho pepe;
+
+@each $skater in $lista {
+	.#{$skater}-icon {
+
+	background-image:url("../img/#{$skater}.jpg");
+	width: 300px;
+	height: 300px;
+	border: solid 1px red;
+	}
+
+}
+
+
+/* ----  MAPS  ---- */
+
+/*dentro de los parentesis se una , */
+
+$colors:(
+	twitter: lightblue,
+	facebook: blue,
+	send-email: red
+
+);
+
+/* aca crea dos variables dentro de la funcion y despues crea una clase y le asigna valores*/
+
+@each $name-color, $bg-color in $colors {
+	
+	.bnt--#{$name-color} {
+	background-color: $bg-color;
+	padding: 15px 25px;
+	font-size: 1.3em;
+	color: white;
+	}
+
+}
+
+/* ----  MIXINS  ---- */
+/* se utiliza para reutilizar estilos en el proyecto, por lo gral el tamanio */
+
+@mixin sizes($height, $width){
+	
+	height: $height;
+	width: $width;
+	
+}
+
+.box{
+	@include sizes(700px, 300px);
+	background: pink;
+
+}
